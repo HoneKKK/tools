@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>JSBarcode API&#x53c2;&#x8003;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <hr>
+<h2 id="title-jsbarcode-api参考">title: JSBarcode API参考</h2>
+<h1 id="jsbarcode-api参考">JSBarcode API参考</h1>
+<h2 id="基本语法">基本语法</h2>
+<p>JSBarcode的基本语法如下：</p>
+<pre><code class="language-javascript"><span class="hljs-title class_">JsBarcode</span>(element, text, [options]);
+</code></pre>
+<h3 id="参数说明">参数说明</h3>
+<ul>
+<li><strong>element</strong>: 要渲染条形码的DOM元素或选择器</li>
+<li><strong>text</strong>: 要编码的文本内容</li>
+<li><strong>options</strong>: 可选的配置选项对象</li>
+</ul>
+<h2 id="选择器语法">选择器语法</h2>
+<p>JSBarcode支持多种方式选择要渲染的元素：</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// 使用CSS选择器</span>
+<span class="hljs-title class_">JsBarcode</span>(<span class="hljs-string">&quot;#barcode&quot;</span>, <span class="hljs-string">&quot;Hello&quot;</span>);
+
+<span class="hljs-comment">// 使用DOM元素</span>
+<span class="hljs-keyword">var</span> element = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;barcode&quot;</span>);
+<span class="hljs-title class_">JsBarcode</span>(element, <span class="hljs-string">&quot;Hello&quot;</span>);
+
+<span class="hljs-comment">// 使用jQuery选择器（如果有jQuery）</span>
+<span class="hljs-title class_">JsBarcode</span>($(<span class="hljs-string">&quot;#barcode&quot;</span>), <span class="hljs-string">&quot;Hello&quot;</span>);
+
+<span class="hljs-comment">// 选择多个元素</span>
+<span class="hljs-title class_">JsBarcode</span>(<span class="hljs-string">&quot;.barcode&quot;</span>, <span class="hljs-string">&quot;Hello&quot;</span>);
+</code></pre>
+<h2 id="配置选项">配置选项</h2>
+<p>JSBarcode提供了丰富的配置选项来自定义条形码的外观和行为：</p>
+<pre><code class="language-javascript"><span class="hljs-title class_">JsBarcode</span>(<span class="hljs-string">&quot;#barcode&quot;</span>, <span class="hljs-string">&quot;Hello&quot;</span>, {
+  <span class="hljs-comment">// 条形码类型</span>
+  <span class="hljs-attr">format</span>: <span class="hljs-string">&quot;CODE128&quot;</span>,
+  
+  <span class="hljs-comment">// 线条宽度</span>
+  <span class="hljs-attr">width</span>: <span class="hljs-number">2</span>,
+  
+  <span class="hljs-comment">// 条形码高度</span>
+  <span class="hljs-attr">height</span>: <span class="hljs-number">100</span>,
+  
+  <span class="hljs-comment">// 显示文本</span>
+  <span class="hljs-attr">displayValue</span>: <span class="hljs-literal">true</span>,
+  
+  <span class="hljs-comment">// 文本字体</span>
+  <span class="hljs-attr">font</span>: <span class="hljs-string">&quot;monospace&quot;</span>,
+  
+  <span class="hljs-comment">// 文本对齐方式</span>
+  <span class="hljs-attr">textAlign</span>: <span class="hljs-string">&quot;center&quot;</span>,
+  
+  <span class="hljs-comment">// 文本位置</span>
+  <span class="hljs-attr">textPosition</span>: <span class="hljs-string">&quot;bottom&quot;</span>,
+  
+  <span class="hljs-comment">// 文本边距</span>
+  <span class="hljs-attr">textMargin</span>: <span class="hljs-number">2</span>,
+  
+  <span class="hljs-comment">// 字体大小</span>
+  <span class="hljs-attr">fontSize</span>: <span class="hljs-number">20</span>,
+  
+  <span class="hljs-comment">// 背景色</span>
+  <span class="hljs-attr">background</span>: <span class="hljs-string">&quot;#ffffff&quot;</span>,
+  
+  <span class="hljs-comment">// 线条颜色</span>
+  <span class="hljs-attr">lineColor</span>: <span class="hljs-string">&quot;#000000&quot;</span>,
+  
+  <span class="hljs-comment">// 边距</span>
+  <span class="hljs-attr">margin</span>: <span class="hljs-number">10</span>,
+  
+  <span class="hljs-comment">// 条形码旋转角度（度）</span>
+  <span class="hljs-attr">rotate</span>: <span class="hljs-number">0</span>,
+  
+  <span class="hljs-comment">// 是否扁平化SVG路径</span>
+  <span class="hljs-attr">flat</span>: <span class="hljs-literal">false</span>,
+  
+  <span class="hljs-comment">// 渲染完成回调函数</span>
+  <span class="hljs-attr">onSuccess</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">instance</span>) {},
+  
+  <span class="hljs-comment">// 渲染失败回调函数</span>
+  <span class="hljs-attr">onError</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) {},
+  
+  <span class="hljs-comment">// 是否有效（用于验证）</span>
+  <span class="hljs-attr">valid</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">valid</span>) {}
+});
+</code></pre>
+<h2 id="支持的条形码格式">支持的条形码格式</h2>
+<p>JSBarcode支持多种条形码格式，可以通过<code>format</code>选项指定：</p>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th>描述</th>
+<th>有效字符</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CODE128</td>
+<td>高密度条形码，支持所有ASCII字符</td>
+<td>ASCII字符</td>
+<td><code>JsBarcode('#barcode', 'Hello', {format: 'CODE128'});</code></td>
+</tr>
+<tr>
+<td>CODE128A</td>
+<td>CODE128 A模式，支持大写字母和控制字符</td>
+<td>大写字母, 数字, 控制字符</td>
+<td><code>JsBarcode('#barcode', 'ABC123', {format: 'CODE128A'});</code></td>
+</tr>
+<tr>
+<td>CODE128B</td>
+<td>CODE128 B模式，支持所有可打印ASCII字符</td>
+<td>所有可打印ASCII字符</td>
+<td><code>JsBarcode('#barcode', 'Hello World!', {format: 'CODE128B'});</code></td>
+</tr>
+<tr>
+<td>CODE128C</td>
+<td>CODE128 C模式，支持数字（每两位数字为一组）</td>
+<td>数字（偶数位）</td>
+<td><code>JsBarcode('#barcode', '12345678', {format: 'CODE128C'});</code></td>
+</tr>
+<tr>
+<td>EAN13</td>
+<td>国际商品编码，13位数字</td>
+<td>数字（12位+1位校验码）</td>
+<td><code>JsBarcode('#barcode', '5901234123457', {format: 'EAN13'});</code></td>
+</tr>
+<tr>
+<td>EAN8</td>
+<td>缩短版EAN码，8位数字</td>
+<td>数字（7位+1位校验码）</td>
+<td><code>JsBarcode('#barcode', '96385074', {format: 'EAN8'});</code></td>
+</tr>
+<tr>
+<td>UPC</td>
+<td>通用产品代码，12位数字</td>
+<td>数字（11位+1位校验码）</td>
+<td><code>JsBarcode('#barcode', '123456789999', {format: 'UPC'});</code></td>
+</tr>
+<tr>
+<td>CODE39</td>
+<td>支持字母、数字和特殊字符</td>
+<td>大写字母, 数字, 特殊字符</td>
+<td><code>JsBarcode('#barcode', 'ABC-123', {format: 'CODE39'});</code></td>
+</tr>
+<tr>
+<td>ITF14</td>
+<td>物流包装用条码，14位数字</td>
+<td>数字（偶数位）</td>
+<td><code>JsBarcode('#barcode', '10012345678902', {format: 'ITF14'});</code></td>
+</tr>
+<tr>
+<td>MSI</td>
+<td>主要用于仓库管理</td>
+<td>数字</td>
+<td><code>JsBarcode('#barcode', '123456', {format: 'MSI'});</code></td>
+</tr>
+<tr>
+<td>MSI10</td>
+<td>MSI带模10校验</td>
+<td>数字</td>
+<td><code>JsBarcode('#barcode', '123456', {format: 'MSI10'});</code></td>
+</tr>
+<tr>
+<td>MSI11</td>
+<td>MSI带模11校验</td>
+<td>数字</td>
+<td><code>JsBarcode('#barcode', '123456', {format: 'MSI11'});</code></td>
+</tr>
+<tr>
+<td>MSI1010</td>
+<td>MSI带双模10校验</td>
+<td>数字</td>
+<td><code>JsBarcode('#barcode', '123456', {format: 'MSI1010'});</code></td>
+</tr>
+<tr>
+<td>MSI1110</td>
+<td>MSI带模11和模10校验</td>
+<td>数字</td>
+<td><code>JsBarcode('#barcode', '123456', {format: 'MSI1110'});</code></td>
+</tr>
+<tr>
+<td>pharmacode</td>
+<td>制药行业使用的条码</td>
+<td>数字（1-9999）</td>
+<td><code>JsBarcode('#barcode', '1234', {format: 'pharmacode'});</code></td>
+</tr>
+<tr>
+<td>codabar</td>
+<td>早期用于图书馆和医疗系统</td>
+<td>数字, 特殊字符</td>
+<td><code>JsBarcode('#barcode', 'A12345B', {format: 'codabar'});</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="方法链">方法链</h2>
+<p>JSBarcode支持方法链式调用，可以在同一个元素上生成多个条形码：</p>
+<pre><code class="language-javascript"><span class="hljs-title class_">JsBarcode</span>(<span class="hljs-string">&quot;#barcode&quot;</span>)
+  .<span class="hljs-title function_">options</span>({<span class="hljs-attr">font</span>: <span class="hljs-string">&quot;OCR-B&quot;</span>}) <span class="hljs-comment">// 设置所有条形码的选项</span>
+  .<span class="hljs-title class_">CODE128</span>(<span class="hljs-string">&quot;ABC&quot;</span>, {<span class="hljs-attr">height</span>: <span class="hljs-number">50</span>})
+  .<span class="hljs-title function_">blank</span>(<span class="hljs-number">20</span>) <span class="hljs-comment">// 添加空白</span>
+  .<span class="hljs-title class_">EAN13</span>(<span class="hljs-string">&quot;5901234123457&quot;</span>, {<span class="hljs-attr">fontSize</span>: <span class="hljs-number">18</span>, <span class="hljs-attr">textMargin</span>: <span class="hljs-number">0</span>})
+  .<span class="hljs-title function_">render</span>(); <span class="hljs-comment">// 最后调用render方法进行渲染</span>
+</code></pre>
+<h2 id="验证">验证</h2>
+<p>JSBarcode提供了验证功能，可以检查输入的数据是否有效：</p>
+<pre><code class="language-javascript"><span class="hljs-title class_">JsBarcode</span>(<span class="hljs-string">&quot;#barcode&quot;</span>, <span class="hljs-string">&quot;123456789&quot;</span>, {
+  <span class="hljs-attr">format</span>: <span class="hljs-string">&quot;EAN13&quot;</span>,
+  <span class="hljs-attr">valid</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">valid</span>) {
+    <span class="hljs-keyword">if</span> (valid) {
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;条形码有效&quot;</span>);
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;条形码无效&quot;</span>);
+    }
+  }
+});
+</code></pre>
+<h2 id="错误处理">错误处理</h2>
+<p>可以通过<code>onError</code>回调函数处理渲染错误：</p>
+<pre><code class="language-javascript"><span class="hljs-title class_">JsBarcode</span>(<span class="hljs-string">&quot;#barcode&quot;</span>, <span class="hljs-string">&quot;123&quot;</span>, {
+  <span class="hljs-attr">format</span>: <span class="hljs-string">&quot;EAN13&quot;</span>, <span class="hljs-comment">// EAN13需要12位数字+1位校验码</span>
+  <span class="hljs-attr">onError</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(error);
+  }
+});
+</code></pre>
+<h2 id="svg导出">SVG导出</h2>
+<p>如果你需要导出SVG代码，可以使用以下方法：</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> svg = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;barcode&quot;</span>);
+<span class="hljs-keyword">var</span> svgText = <span class="hljs-keyword">new</span> <span class="hljs-title class_">XMLSerializer</span>().<span class="hljs-title function_">serializeToString</span>(svg);
+</code></pre>
+<h2 id="canvas渲染">Canvas渲染</h2>
+<p>JSBarcode也支持在Canvas上渲染条形码：</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> canvas = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;barcode&quot;</span>);
+<span class="hljs-title class_">JsBarcode</span>(canvas, <span class="hljs-string">&quot;Hello&quot;</span>, {
+  <span class="hljs-attr">format</span>: <span class="hljs-string">&quot;CODE128&quot;</span>,
+  <span class="hljs-attr">width</span>: <span class="hljs-number">2</span>,
+  <span class="hljs-attr">height</span>: <span class="hljs-number">100</span>
+});
+</code></pre>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>

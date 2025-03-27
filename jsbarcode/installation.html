@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>JSBarcode &#x5b89;&#x88c5;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <hr>
+<h2 id="title-jsbarcode-安装">title: JSBarcode 安装</h2>
+<h1 id="jsbarcode-安装">JSBarcode 安装</h1>
+<h2 id="通过npm安装">通过NPM安装</h2>
+<p>使用NPM安装JSBarcode是最推荐的方式，特别是在现代前端项目中：</p>
+<pre><code class="language-bash">npm install jsbarcode
+</code></pre>
+<p>安装完成后，可以在JavaScript文件中导入：</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// 导入完整库</span>
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">JsBarcode</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;jsbarcode&#x27;</span>;
+
+<span class="hljs-comment">// 或者按需导入特定格式</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CODE128</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;jsbarcode/src/barcodes&#x27;</span>;
+</code></pre>
+<h2 id="通过cdn引入">通过CDN引入</h2>
+<p>如果你不使用构建工具，可以通过CDN直接在HTML中引入JSBarcode：</p>
+<pre><code class="language-html"><span class="hljs-comment">&lt;!-- 使用jsDelivr CDN --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- 或使用unpkg CDN --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/jsbarcode@3.11.6/dist/JsBarcode.all.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<h2 id="下载文件手动引入">下载文件手动引入</h2>
+<p>你也可以从GitHub仓库下载最新的发布版本，然后手动引入到你的项目中：</p>
+<ol>
+<li>访问 <a href="https://github.com/lindell/JsBarcode/releases">JSBarcode GitHub Releases</a></li>
+<li>下载最新版本的压缩文件</li>
+<li>解压并将<code>dist</code>目录中的文件复制到你的项目中</li>
+<li>在HTML中引入：</li>
+</ol>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;path/to/JsBarcode.all.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<h2 id="不同版本说明">不同版本说明</h2>
+<p>JSBarcode提供了几种不同的构建版本，可以根据需要选择：</p>
+<ul>
+<li><strong>JsBarcode.all.min.js</strong>: 包含所有条形码类型的完整库（推荐）</li>
+<li><strong>JsBarcode.all.js</strong>: 未压缩的完整库，包含所有条形码类型</li>
+<li><strong>JsBarcode.min.js</strong>: 仅包含CODE128条形码类型的最小库</li>
+<li><strong>单独的条形码类型文件</strong>: 在<code>dist/barcodes</code>目录下可以找到单独的条形码类型文件</li>
+</ul>
+<h2 id="在不同环境中使用">在不同环境中使用</h2>
+<h3 id="在vuejs中使用">在Vue.js中使用</h3>
+<pre><code class="language-javascript"><span class="hljs-keyword">import</span> <span class="hljs-title class_">JsBarcode</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;jsbarcode&#x27;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  <span class="hljs-title function_">mounted</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-title class_">JsBarcode</span>(<span class="hljs-string">&quot;#barcode&quot;</span>, <span class="hljs-string">&quot;Hello World&quot;</span>)</code></pre>
+
+            
+            
+        </body>
+        </html>

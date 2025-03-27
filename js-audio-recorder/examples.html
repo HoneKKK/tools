@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>JS Audio Recorder &#x4f7f;&#x7528;&#x793a;&#x4f8b;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <hr>
+<h2 id="title-js-audio-recorder-使用示例">title: JS Audio Recorder 使用示例</h2>
+<h1 id="js-audio-recorder-使用示例">JS Audio Recorder 使用示例</h1>
+<h2 id="基础录音示例">基础录音示例</h2>
+<p>以下是一个基础的录音、播放和下载示例：</p>
+<pre><code class="language-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>JS Audio Recorder 基础示例<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css">
+    <span class="hljs-selector-tag">body</span> {
+      <span class="hljs-attribute">font-family</span>: Arial, sans-serif;
+      <span class="hljs-attribute">max-width</span>: <span class="hljs-number">800px</span>;
+      <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span>;
+    }
+    <span class="hljs-selector-class">.btn</span> {
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span> <span class="hljs-number">15px</span>;
+      <span class="hljs-attribute">margin</span>: <span class="hljs-number">5px</span>;
+      <span class="hljs-attribute">border</span>: none;
+      <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4px</span>;
+      <span class="hljs-attribute">cursor</span>: pointer;
+      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">14px</span>;
+    }
+    <span class="hljs-selector-class">.btn-primary</span> {
+      <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#4CAF50</span>;
+      <span class="hljs-attribute">color</span>: white;
+    }
+    <span class="hljs-selector-class">.btn-secondary</span> {
+      <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#2196F3</span>;
+      <span class="hljs-attribute">color</span>: white;
+    }
+    <span class="hljs-selector-class">.btn-danger</span> {
+      <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#f44336</span>;
+      <span class="hljs-attribute">color</span>: white;
+    }
+    <span class="hljs-selector-class">.controls</span> {
+      <span class="hljs-attribute">margin</span>: <span class="hljs-number">20px</span> <span class="hljs-number">0</span>;
+    }
+    <span class="hljs-selector-class">.status</span> {
+      <span class="hljs-attribute">margin</span>: <span class="hljs-number">10px</span> <span class="hljs-number">0</span>;
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>;
+      <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#f5f5f5</span>;
+      <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4px</span>;
+    }
+  </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>JS Audio Recorder 基础示例<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+  
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;controls&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;startBtn&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-primary&quot;</span>&gt;</span>开始录音<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;pauseBtn&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-secondary&quot;</span> <span class="hljs-attr">disabled</span>&gt;</span>暂停录音<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;resumeBtn&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-secondary&quot;</span> <span class="hljs-attr">disabled</span>&gt;</span>恢复录音<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;stopBtn&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-danger&quot;</span> <span class="hljs-attr">disabled</span>&gt;</span>停止录音<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;controls&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;playBtn&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-secondary&quot;</span> <span class="hljs-attr">disabled</span>&gt;</span>播放录音<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;pausePlayBtn&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-secondary&quot;</span> <span class="hljs-attr">disabled</span>&gt;</span>暂停播放<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;stopPlayBtn&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-secondary&quot;</span> <span class="hljs-attr">disabled</span>&gt;</span>停止播放<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;downloadBtn&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-primary&quot;</span> <span class="hljs-attr">disabled</span>&gt;</span>下载录音<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;status&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;status&quot;</span>&gt;</span>状态：等待开始录音<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/js-audio-recorder@1.0.7/dist/recorder.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
+    <span class="hljs-comment">// 获取DOM元素</span>
+    <span class="hljs-keyword">const</span> startBtn = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;startBtn&#x27;</span>);
+    <span class="hljs-keyword">const</span> pauseBtn = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;pauseBtn&#x27;</span>);
+    <span class="hljs-keyword">const</span> resumeBtn = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;resumeBtn&#x27;</span>);
+    <span class="hljs-keyword">const</span> stopBtn = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;stopBtn&#x27;</span>);
+    <span class="hljs-keyword">const</span> playBtn = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;playBtn&#x27;</span>);
+    <span class="hljs-keyword">const</span> pausePlayBtn = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;pausePlayBtn&#x27;</span>);
+    <span class="hljs-keyword">const</span> stopPlayBtn = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;stopPlayBtn&#x27;</span>);
+    <span class="hljs-keyword">const</span> downloadBtn = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;downloadBtn&#x27;</span>);
+    <span class="hljs-keyword">const</span> statusDiv = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;status&#x27;</span>);
+    
+    <span class="hljs-comment">// 创建录音实例</span>
+    <span class="hljs-keyword">const</span> recorder = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Recorder</span>({
+      <span class="hljs-attr">sampleBits</span>: <span class="hljs-number">16</span>,
+      <span class="hljs-attr">sampleRate</span>: <span class="hljs-number">44100</span>,
+      <span class="hljs-attr">numChannels</span>: <span class="hljs-number">1</span>
+    });
+    
+    <span class="hljs-comment">// 更新状态显示</span>
+    <span class="hljs-keyword">function</span> <span class="hljs-title function_">updateStatus</span>(<span class="hljs-params">message</span>) {
+      statusDiv.<span class="hljs-property">textContent</span> = <span class="hljs-string">&#x27;状态：&#x27;</span> + message;
+    }
+    
+    <span class="hljs-comment">// 开始录音</span>
+    startBtn.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+      recorder.<span class="hljs-title function_">start</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">updateStatus</span>(<span class="hljs-string">&#x27;正在录音...&#x27;</span>);
+        startBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">true</span>;
+        pauseBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">false</span>;
+        stopBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">false</span>;
+        resumeBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">true</span>;
+      }).<span class="hljs-title function_">catch</span>(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+        <span class="hljs-title function_">updateStatus</span>(<span class="hljs-string">&#x27;录音失败: &#x27;</span> + error.<span class="hljs-property">message</span>);
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;录音失败:&#x27;</span>, error);
+      });
+    });
+    
+    <span class="hljs-comment">// 暂停录音</span>
+    pauseBtn.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+      recorder.<span class="hljs-title function_">pause</span>();
+      <span class="hljs-title function_">updateStatus</span>(<span class="hljs-string">&#x27;录音已暂停&#x27;</span>);
+      pauseBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">true</span>;
+      resumeBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">false</span>;
+    });
+    
+    <span class="hljs-comment">// 恢复录音</span>
+    resumeBtn.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+      recorder.<span class="hljs-title function_">resume</span>();
+      <span class="hljs-title function_">updateStatus</span>(<span class="hljs-string">&#x27;正在录音...&#x27;</span>);
+      pauseBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">false</span>;
+      resumeBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">true</span>;
+    });
+    
+    <span class="hljs-comment">// 停止录音</span>
+    stopBtn.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+      recorder.<span class="hljs-title function_">stop</span>();
+      <span class="hljs-title function_">updateStatus</span>(<span class="hljs-string">&#x27;录音已停止，可以播放或下载&#x27;</span>);
+      startBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">false</span>;
+      pauseBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">true</span>;
+      resumeBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">true</span>;
+      stopBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">true</span>;
+      playBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">false</span>;
+      downloadBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">false</span>;
+    });
+    
+    <span class="hljs-comment">// 播放录音</span>
+    playBtn.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+      recorder.<span class="hljs-title function_">play</span>();
+      <span class="hljs-title function_">updateStatus</span>(<span class="hljs-string">&#x27;正在播放录音...&#x27;</span>);
+      playBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">true</span>;
+      pausePlayBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">false</span>;
+      stopPlayBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">false</span>;
+    });
+    
+    <span class="hljs-comment">// 暂停播放</span>
+    pausePlayBtn.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+      recorder.<span class="hljs-title function_">pausePlay</span>();
+      <span class="hljs-title function_">updateStatus</span>(<span class="hljs-string">&#x27;播放已暂停&#x27;</span>);
+      pausePlayBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">true</span>;
+      playBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">false</span>;
+    });
+    
+    <span class="hljs-comment">// 停止播放</span>
+    stopPlayBtn.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+      recorder.<span class="hljs-title function_">stopPlay</span>();
+      <span class="hljs-title function_">updateStatus</span>(<span class="hljs-string">&#x27;播放已停止&#x27;</span>);
+      playBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">false</span>;
+      pausePlayBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">true</span>;
+      stopPlayBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">true</span>;
+    });
+    
+    <span class="hljs-comment">// 下载录音</span>
+    downloadBtn.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+      <span class="hljs-comment">// 获取WAV格式的Blob对象</span>
+      <span class="hljs-keyword">const</span> wavBlob = recorder.<span class="hljs-title function_">getWAVBlob</span>();
+      
+      <span class="hljs-comment">// 创建下载链接</span>
+      <span class="hljs-keyword">const</span> url = <span class="hljs-variable constant_">URL</span>.<span class="hljs-title function_">createObjectURL</span>(wavBlob);
+      <span class="hljs-keyword">const</span> link = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;a&#x27;</span>);
+      link.<span class="hljs-property">href</span> = url;
+      link.<span class="hljs-property">download</span> = <span class="hljs-string">&#x27;recording_&#x27;</span> + <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">getTime</span>() + <span class="hljs-string">&#x27;.wav&#x27;</span>;
+      link.<span class="hljs-title function_">click</span>();
+      
+      <span class="hljs-title function_">updateStatus</span>(<span class="hljs-string">&#x27;录音已下载&#x27;</span>);
+    });
+  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<h2 id="音量可视化示例">音量可视化示例</h2>
+<p>以下示例展示了如何实时显示录音的音量：</p>
+<pre><code class="language-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>JS Audio Recorder 音量可视化<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css">
+    <span class="hljs-selector-tag">body</span> {
+      <span class="hljs-attribute">font-family</span>: Arial, sans-serif;
+      <span class="hljs-attribute">max-width</span>: <span class="hljs-number">800px</span>;
+      <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span>;
+    }
+    <span class="hljs-selector-class">.btn</span> {
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span> <span class="hljs-number">15px</span>;
+      <span class="hljs-attribute">margin</span>: <span class="hljs-number">5px</span>;
+      <span class="hljs-attribute">border</span>: none;
+      <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4px</span>;
+      <span class="hljs-attribute">cursor</span>: pointer;
+      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">14px</span>;
+    }
+    <span class="hljs-selector-class">.btn-primary</span> {
+      <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#4CAF50</span>;
+      <span class="hljs-attribute">color</span>: white;
+    }
+    <span class="hljs-selector-class">.btn-danger</span> {
+      <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#f44336</span>;
+      <span class="hljs-attribute">color</span>: white;
+    }
+    <span class="hljs-selector-class">.controls</span> {
+      <span class="hljs-attribute">margin</span>: <span class="hljs-number">20px</span> <span class="hljs-number">0</span>;
+    }
+    <span class="hljs-selector-class">.volume-container</span> {
+      <span class="hljs-attribute">margin</span>: <span class="hljs-number">20px</span> <span class="hljs-number">0</span>;
+      <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#f5f5f5</span>;
+      <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4px</span>;
+      <span class="hljs-attribute">height</span>: <span class="hljs-number">30px</span>;
+      <span class="hljs-attribute">position</span>: relative;
+    }
+    <span class="hljs-selector-class">.volume-bar</span> {
+      <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+      <span class="hljs-attribute">width</span>: <span class="hljs-number">0</span>;
+      <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#4CAF50</span>;
+      <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4px</span>;
+      <span class="hljs-attribute">transition</span>: width <span class="hljs-number">0.1s</span> ease;
+    }
+    <span class="hljs-selector-class">.volume-text</span> {
+      <span class="hljs-attribute">position</span>: absolute;
+      <span class="hljs-attribute">right</span>: <span class="hljs-number">10px</span>;
+      <span class="hljs-attribute">top</span>: <span class="hljs-number">5px</span>;
+      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">14px</span>;
+    }
+  </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>JS Audio Recorder 音量可视化<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+  
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;controls&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;startBtn&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-primary&quot;</span>&gt;</span>开始录音<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;stopBtn&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-danger&quot;</span> <span class="hljs-attr">disabled</span>&gt;</span>停止录音<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;volume-container&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;volumeBar&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;volume-bar&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;volumeText&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;volume-text&quot;</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/js-audio-recorder@1.0.7/dist/recorder.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
+    <span class="hljs-comment">// 获取DOM元素</span>
+    <span class="hljs-keyword">const</span> startBtn = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;startBtn&#x27;</span>);
+    <span class="hljs-keyword">const</span> stopBtn = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;stopBtn&#x27;</span>);
+    <span class="hljs-keyword">const</span> volumeBar = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;volumeBar&#x27;</span>);
+    <span class="hljs-keyword">const</span> volumeText = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;volumeText&#x27;</span>);
+    
+    <span class="hljs-comment">// 创建录音实例</span>
+    <span class="hljs-keyword">const</span> recorder = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Recorder</span>({
+      <span class="hljs-attr">sampleBits</span>: <span class="hljs-number">16</span>,
+      <span class="hljs-attr">sampleRate</span>: <span class="hljs-number">44100</span>,
+      <span class="hljs-attr">numChannels</span>: <span class="hljs-number">1</span>,
+      <span class="hljs-comment">// 开启音量监控</span>
+      <span class="hljs-attr">audioVolume</span>: <span class="hljs-literal">true</span>
+    });
+    
+    <span class="hljs-keyword">let</span> volumeInterval = <span class="hljs-literal">null</span>;
+    
+    <span class="hljs-comment">// 开始录音并监控音量</span>
+    startBtn.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+      recorder.<span class="hljs-title function_">start</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+        startBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">true</span>;
+        stopBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">false</span>;
+        
+        <span class="hljs-comment">// 每100毫秒获取一次音量</span>
+        volumeInterval = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =&gt;</span> {
+          <span class="hljs-comment">// 获取音量，范围0-100</span>
+          <span class="hljs-keyword">const</span> volume = recorder.<span class="hljs-title function_">getVolume</span>();
+          
+          <span class="hljs-comment">// 更新音量条</span>
+          volumeBar.<span class="hljs-property">style</span>.<span class="hljs-property">width</span> = volume + <span class="hljs-string">&#x27;%&#x27;</span>;
+          volumeText.<span class="hljs-property">textContent</span> = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">round</span>(volume);
+          
+          <span class="hljs-comment">// 根据音量改变颜色</span>
+          <span class="hljs-keyword">if</span> (volume &lt; <span class="hljs-number">30</span>) {
+            volumeBar.<span class="hljs-property">style</span>.<span class="hljs-property">backgroundColor</span> = <span class="hljs-string">&#x27;#4CAF50&#x27;</span>; <span class="hljs-comment">// 绿色</span>
+          } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (volume &lt; <span class="hljs-number">70</span>) {
+            volumeBar.<span class="hljs-property">style</span>.<span class="hljs-property">backgroundColor</span> = <span class="hljs-string">&#x27;#FFC107&#x27;</span>; <span class="hljs-comment">// 黄色</span>
+          } <span class="hljs-keyword">else</span> {
+            volumeBar.<span class="hljs-property">style</span>.<span class="hljs-property">backgroundColor</span> = <span class="hljs-string">&#x27;#F44336&#x27;</span>; <span class="hljs-comment">// 红色</span>
+          }
+        }, <span class="hljs-number">100</span>);
+      }).<span class="hljs-title function_">catch</span>(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;录音失败:&#x27;</span>, error);
+      });
+    });
+    
+    <span class="hljs-comment">// 停止录音</span>
+    stopBtn.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+      recorder.<span class="hljs-title function_">stop</span>();
+      <span class="hljs-built_in">clearInterval</span>(volumeInterval);
+      startBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">false</span>;
+      stopBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">true</span>;
+    });
+  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<h2 id="录音波形可视化">录音波形可视化</h2>
+<p>以下示例展示了如何使用Canvas绘制录音波形：</p>
+<pre><code class="language-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>JS Audio Recorder 波形可视化<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css">
+    <span class="hljs-selector-tag">body</span> {
+      <span class="hljs-attribute">font-family</span>: Arial, sans-serif;
+      <span class="hljs-attribute">max-width</span>: <span class="hljs-number">800px</span>;
+      <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span>;
+    }
+    <span class="hljs-selector-class">.btn</span> {
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span> <span class="hljs-number">15px</span>;
+      <span class="hljs-attribute">margin</span>: <span class="hljs-number">5px</span>;
+      <span class="hljs-attribute">border</span>: none;
+      <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4px</span>;
+      <span class="hljs-attribute">cursor</span>: pointer;
+      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">14px</span>;
+    }
+    <span class="hljs-selector-class">.btn-primary</span> {
+      <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#4CAF50</span>;
+      <span class="hljs-attribute">color</span>: white;
+    }
+    <span class="hljs-selector-class">.btn-danger</span> {
+      <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#f44336</span>;
+      <span class="hljs-attribute">color</span>: white;
+    }
+    <span class="hljs-selector-class">.controls</span> {
+      <span class="hljs-attribute">margin</span>: <span class="hljs-number">20px</span> <span class="hljs-number">0</span>;
+    }
+    <span class="hljs-selector-tag">canvas</span> {
+      <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+      <span class="hljs-attribute">height</span>: <span class="hljs-number">200px</span>;
+      <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#f5f5f5</span>;
+      <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4px</span>;
+    }
+  </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>JS Audio Recorder 波形可视化<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+  
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;controls&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;startBtn&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-primary&quot;</span>&gt;</span>开始录音<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;stopBtn&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-danger&quot;</span> <span class="hljs-attr">disabled</span>&gt;</span>停止录音<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  
+  <span class="hljs-tag">&lt;<span class="hljs-name">canvas</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;waveform&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">canvas</span>&gt;</span>
+  
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/js-audio-recorder@1.0.7/dist/recorder.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
+    <span class="hljs-comment">// 获取DOM元素</span>
+    <span class="hljs-keyword">const</span> startBtn =</span></code></pre>
+
+            
+            
+        </body>
+        </html>

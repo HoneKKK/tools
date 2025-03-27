@@ -1,0 +1,19 @@
+# GitLab CI/CD 配置文件
+
+image: node:16
+
+cache:
+  paths:
+    - node_modules/
+
+pages:
+  stage: deploy
+  script:
+    - npm ci
+    - npm run docs:build
+    - cp -r .vitepress/dist/* public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
